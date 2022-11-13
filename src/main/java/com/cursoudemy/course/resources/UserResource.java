@@ -1,4 +1,4 @@
-package com.cursoudemy.course.resource;
+package com.cursoudemy.course.resources;
 
 import com.cursoudemy.course.entities.User;
 import org.springframework.http.ResponseEntity;
