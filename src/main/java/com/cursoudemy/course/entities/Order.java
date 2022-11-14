@@ -1,5 +1,6 @@
 package com.cursoudemy.course.entities;
 
+import com.cursoudemy.course.entities.enums.OrdersStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -16,6 +17,7 @@ public class Order implements Serializable {
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
+    private Integer ordersStatus;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -23,9 +25,10 @@ public class Order implements Serializable {
 
     public Order() {}
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrdersStatus ordersStatus, User client) {
         this.id = id;
         this.moment = moment;
+        setOrdersStatus(ordersStatus);
         this.client = client;
     }
 
@@ -43,6 +46,16 @@ public class Order implements Serializable {
 
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+
+    public OrdersStatus getOrdersStatus() {
+        return OrdersStatus.valueOf(ordersStatus);
+    }
+
+    public void setOrdersStatus(OrdersStatus ordersStatus) {
+        if (ordersStatus != null) {
+            this.ordersStatus = ordersStatus.getCode();
+        }
     }
 
     public User getClient() {
